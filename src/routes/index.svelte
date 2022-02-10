@@ -1,12 +1,23 @@
 <script lang='ts'>
 
+	import { onMount } from 'svelte'
 	import CountryCard from "../components/shared/countryCard/CountryCard.svelte";
 	import Dropdown from "../components/shared/dropdown/Dropdown.svelte";
 	import { getData } from "../graphQl/post";
 	import { testQuery } from "../graphQl/queries/testQuery";
 	import { countries, selectedCountry } from '../stores/country'
 
-	getData(testQuery)
+	// getData(testQuery)
+
+	let socket
+
+	onMount(() => {
+		socket = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum,tether')
+
+		socket.addEventListener('message', (e) => {
+			console.log(JSON.parse(e.data).bitcoin)
+		})
+	})
 
 
 </script>
