@@ -15,9 +15,10 @@
 </style>
 
 <li>
-
-	<h2>{name}/USDT</h2>
-	
-	<p>{value}</p>
+	<div>
+		<h2>{name}/USDT</h2>
+		
+		<p>{value}</p>
+	</div>
 
 </li>

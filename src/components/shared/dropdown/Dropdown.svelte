@@ -1,16 +1,15 @@
 <script lang='ts'>
 	
-	import type { Writable } from "svelte/store";
-	import type { Country } from "../../../types";
+	import { selectedCountry } from "../../../stores/countrySelect";
+	import type { Countries, Country } from "../../../types";
 	export let title: string
-	export let options: Country[]
-	export let store: Writable<string>
+	export let options: Countries
 
-	const handleChange = (option: string) => {
-		store.update(() => option)
+	selectedCountry.set(options.edges[0])
+
+	const handleChange = (option: number) => {
+		selectedCountry.set(options.edges[option])
 	}
-
-	$: flag = options.find((country: Country) => country.countryName === $store).flag
 
 </script>
 
@@ -26,16 +25,13 @@ span {
 }
 
 </style>
-
-<p><img src={`/icons/${flag}.svg`} alt={`${$store} flag`} />{$store}</p>
-
-
+<h2><img src={$selectedCountry?.node.flag} alt={`${$selectedCountry?.node.name}'s flag`} />{$selectedCountry?.node.name}</h2>
 <label for={title}>Select your <span>{title}</span>:</label>
-<select id={title} name={title} value={$store} on:change={(e) => handleChange(e.currentTarget.value)}>
+<select id={title} name={title} value={$selectedCountry?.node.name} on:change={(e) => handleChange(parseInt(e.currentTarget.value))}>
 
-	{#each options as option}
-		<option value={option.countryName}>
-			{option.countryName}
+	{#each options.edges.slice(0,5) as option, i}
+		<option value={i}>
+			{option.node.name}
 		</option>
 	{/each}
 

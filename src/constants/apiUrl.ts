@@ -1,1 +1,1 @@
-export const apiUrl = 'https://graphql.bitquery.io'
+export const apiUrl = 'https://graphql.country/graphql'

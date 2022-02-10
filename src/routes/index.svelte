@@ -3,20 +3,17 @@
 	import { onMount } from 'svelte'
 	import CoinCard from "../components/shared/coinCard/CoinCard.svelte";
 	import Dropdown from "../components/shared/dropdown/Dropdown.svelte";
-	import { getData } from "../graphQl/post";
-	import { testQuery } from "../graphQl/queries/testQuery";
-import { bitcoinStore, ethereumStore, getCoinValues, moneroStore } from '../stores/coinValue';
-	import { countries, selectedCountry } from '../stores/countrySelect'
+	import { post } from '../graphQl/post';
+	import { countriesQuery } from '../graphQl/queries/coutriesQuery';
+	import { bitcoinStore, ethereumStore, getCoinValues, moneroStore } from '../stores/coinValue';
 
-	// getData(testQuery)
+	const coutriesPromise = post(countriesQuery)
 
 	onMount(() => {
 
 		getCoinValues()
 
 	})
-
-
 
 </script>
 
@@ -30,12 +27,18 @@ import { bitcoinStore, ethereumStore, getCoinValues, moneroStore } from '../stor
 
 </style>
 
-<Dropdown title='country' options={countries} store={selectedCountry} />
+{#await coutriesPromise}
+	<p>Loading Countries...</p>
+{:then countries} 
+	<Dropdown title='country' options={countries.countries} />
+{:catch error}
+	<p>Error: {error.message}</p>
+{/await}
 
 <ul class='card-container' >
 
-	<CoinCard name={'BTC'} change={''} volume={''} value={$bitcoinStore} />
-	<CoinCard name={'ETH'} change={''} volume={''} value={$ethereumStore} />
-	<CoinCard name={'XMR'} change={''} volume={''} value={$moneroStore} />
+	<CoinCard name={'BTC'} value={$bitcoinStore} />
+	<CoinCard name={'ETH'} value={$ethereumStore} />
+	<CoinCard name={'XMR'} value={$moneroStore} />
 
 </ul>

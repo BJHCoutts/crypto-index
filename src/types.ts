@@ -1,4 +1,19 @@
+export type Currency = {
+	node: {
+		code: string
+	}
+}
+
+export type Countries = {
+	edges: Country[]
+}
+
 export type Country = {
-	countryName: string,
-	flag: string,
+	node: {
+		currencies: {
+			edges: Currency[]
+		}
+		flag: string,
+		name: string,
+	}
 }
