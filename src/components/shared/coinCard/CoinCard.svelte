@@ -1,9 +1,7 @@
 <script lang='ts'>
 
 	export let name: string
-	export let change: string
-	export let value: number
-	export let volume: string
+	export let value: number | string
 
 </script>
 
@@ -18,11 +16,7 @@
 
 <li>
 
-	<h2>{name}</h2>
-	
-	<p>{change}</p>
-	
-	<p>{volume}</p>
+	<h2>{name}/USDT</h2>
 	
 	<p>{value}</p>
 

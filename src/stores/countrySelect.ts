@@ -5,18 +5,22 @@ export const countries: Country[] = [
 	{
 		countryName: 'Germany',
 		flag: 'de',
+		rate: 2,
 	},
 	{
 		countryName:'United States of America',
 		flag: 'us',
+		rate: 3,
 	},
 	{
 		countryName: 'Ukraine',
 		flag: 'ua',
+		rate: 4,
 	},
 	{
 		countryName: 'Hungary',
 		flag: 'hu',
+		rate: 5,
 	},
 ]
 
