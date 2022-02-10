@@ -2,8 +2,12 @@
 
 	import CountryCard from "../components/shared/countryCard/CountryCard.svelte";
 	import Dropdown from "../components/shared/dropdown/Dropdown.svelte";
-
+	import { getData } from "../graphQl/post";
+	import { testQuery } from "../graphQl/queries/testQuery";
 	import { countries, selectedCountry } from '../stores/country'
+
+	getData(testQuery)
+
 
 </script>
 
