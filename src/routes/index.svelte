@@ -1,23 +1,39 @@
 <script lang='ts'>
 
 	import { onMount } from 'svelte'
-	import CountryCard from "../components/shared/countryCard/CountryCard.svelte";
+	import CoinCard from "../components/shared/coinCard/CoinCard.svelte";
 	import Dropdown from "../components/shared/dropdown/Dropdown.svelte";
 	import { getData } from "../graphQl/post";
 	import { testQuery } from "../graphQl/queries/testQuery";
-	import { countries, selectedCountry } from '../stores/country'
+import { bitcoinStore, ethereumStore, getCoinValues } from '../stores/coinValue';
+	import { countries, selectedCountry } from '../stores/countrySelect'
 
 	// getData(testQuery)
 
-	let socket
+	// let socket
+	// let bitcoin: number
+	// let ethereum: number
+	$: bitcoinVal = $bitcoinStore
 
 	onMount(() => {
-		socket = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum,tether')
 
-		socket.addEventListener('message', (e) => {
-			console.log(JSON.parse(e.data).bitcoin)
-		})
+		const getCoinValues = () => {
+
+			const socket = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum')
+
+			socket.addEventListener('message', (e) => {
+				if (JSON.parse(e.data).bitcoin !== undefined) {
+					bitcoinStore.set(JSON.parse(e.data).bitcoin)
+				}
+				// ethereumStore.set(JSON.parse(e.data.ethereum))
+				// console.log(JSON.parse(e.data).bitcoin)
+			})
+		}
+
+		getCoinValues()
+
 	})
+
 
 
 </script>
@@ -36,8 +52,7 @@
 
 <ul class='card-container' >
 
-	<CountryCard name={'BTC'} change={''} volume={''} value={''} />
-	<CountryCard name={'ETH'} change={''} volume={''} value={''} />
-	<CountryCard name={'ADA'} change={''} volume={''} value={''} />
+	<CoinCard name={'BTC'} change={''} volume={''} value={bitcoinVal} />
+	<!-- <CoinCard name={'ETH'} change={''} volume={''} value={$ethereumStore} /> -->
 
 </ul>

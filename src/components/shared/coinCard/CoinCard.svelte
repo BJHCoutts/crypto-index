@@ -2,7 +2,7 @@
 
 	export let name: string
 	export let change: string
-	export let value: string
+	export let value: number
 	export let volume: string
 
 </script>
