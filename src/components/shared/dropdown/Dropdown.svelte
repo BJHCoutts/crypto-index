@@ -6,9 +6,19 @@
 	export let options: Countries
 
 	selectedCountry.set(options.edges[0])
+	$: selectedFiat = $selectedCountry?.node.currencies.edges[0].node.code
+
+	// const getRate = async (fiat: string) => {
+	// 	const res = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=USDT&tsyms=${fiat}`)
+	// 	console.log(rate)
+	// }
+
+	// getRate(selectedFiat)
 
 	const handleChange = (option: number) => {
 		selectedCountry.set(options.edges[option])
+
+
 	}
 
 </script>

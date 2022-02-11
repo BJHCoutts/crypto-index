@@ -1,10 +1,10 @@
 import { writable, Writable } from "svelte/store"
 
-export const bitcoinStore: Writable<number|string> = writable('loading...')
+export const bitcoinStore: Writable<number|string> = writable('Loading...')
 
-export const ethereumStore: Writable<number|string> = writable('loading...')
+export const ethereumStore: Writable<number|string> = writable('Loading...')
 
-export const moneroStore: Writable<number|string> = writable('loading...')
+export const moneroStore: Writable<number|string> = writable('Loading...')
 
 export const getCoinValues = () => {
 
