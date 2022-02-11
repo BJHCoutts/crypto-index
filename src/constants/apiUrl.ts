@@ -1,1 +1,2 @@
-export const apiUrl = 'https://graphql.country/graphql'
+export const countriesApiUrl = 'https://graphql.country/graphql'
+export const rateApiUrl = ''

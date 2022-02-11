@@ -1,6 +1,4 @@
-import { apiUrl } from "../constants/apiUrl";
-
-export const post = async (query: string) => {
+export const post = async (apiUrl:string, query: string) => {
 
 	try {
 
