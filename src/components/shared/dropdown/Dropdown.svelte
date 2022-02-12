@@ -1,18 +1,19 @@
 <script lang='ts'>
 	
 	import { selectedCountry, selectedCountryRate } from "../../../stores/countrySelect";
-	import type { Countries, Country } from "../../../types";
+	import type { Countries } from "../../../types";
 	export let title: string
 	export let options: Countries
 
-	selectedCountry.set(options.edges[0])
+	const randomCountryNumber = Math.floor(Math.random() * (options.edges.length-5))
+
+	selectedCountry.set(options.edges[randomCountryNumber])
 
 
 	const getRate = async (fiat: string) => {
 		const res = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=USDT&tsyms=${fiat}`)
 		const results = await res.json()
 		selectedCountryRate.set(results[fiat])
-		console.log(results[fiat])
 	}
 
 	getRate($selectedCountry?.node.currencies.edges[0].node.code)
@@ -23,6 +24,7 @@
 		getRate($selectedCountry?.node.currencies.edges[0].node.code)
 
 	}
+
 
 </script>
 
@@ -44,8 +46,8 @@ span {
 	<label for={title}>Select your <span>{title}</span>:</label>
 	<select id={title} name={title} value={$selectedCountry?.node.name} on:change={(e) => handleChange(parseInt(e.currentTarget.value))}>
 	
-		{#each options.edges.slice(0,5) as option, i}
-			<option value={i}>
+		{#each options.edges.slice(randomCountryNumber, (randomCountryNumber+5)) as option, i}
+			<option value={randomCountryNumber + i}>
 				{option.node.name}
 			</option>
 		{/each}

@@ -14,7 +14,7 @@
 	const currencyFormatter = (currency:string, amount: number) => {
 
 		const formatter = Intl.NumberFormat('en-US', {
-			style: 'currency',
+			// style: 'currency',
 			currency,
 			minimumFractionDigits: 2,
 			maximumFractionDigits: 2,
@@ -22,9 +22,9 @@
 
 		let result = formatter.format(amount)
 
-		if (formatter.format(amount).slice(0,3) === currency) {
-			result = result.substring(3)
-		}
+		// if (formatter.format(amount).slice(0,3) === currency) {
+		// 	result = result.substring(3)
+		// }
 
 		return result
 		
