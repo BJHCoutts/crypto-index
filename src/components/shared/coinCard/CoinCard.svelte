@@ -10,8 +10,20 @@
 		minimumFractionDigits: 2,
 		maximumFractionDigits: 2,
 	});
+	
+	const currencyFormatter = (currency:string, amount: number) => {
 
-	$: fiat = usdt.format(value * $selectedCountryRate)
+		const format = Intl.NumberFormat('en-US', {
+			currency,
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
+
+		return format.format(amount)
+		
+	}
+	
+	$: fiat = currencyFormatter($selectedCountry?.node.currencies.edges[0].node.code, (value * $selectedCountryRate))
 
 </script>
 
@@ -26,7 +38,7 @@
 	<p>Loading...</p>
 	{:else}
 	<p class='text-semibold'>
-		{typeof fiat === 'number' ? fiat : 'rate is unavailable'} {$selectedCountry?.node.currencies.edges[0].node.code}
+		{fiat === 'Loading...' ? 'Loading...' : fiat}{$selectedCountry?.node.currencies.edges[0].node.code}
 	</p>
 	{/if}
 
