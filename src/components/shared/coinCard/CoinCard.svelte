@@ -28,17 +28,17 @@
 </script>
 
 <li>
-	<div class='shadow-md w28 h12 p-8 container-sm'>
+	<div class='shadow-md w28 h12 p-8 container-sm mb-2.5'>
 		<small>{name}/USDT</small>
 		
 		<p class='text-lg font-bold'>{value !== 'Loading...' ? usdt.format(value) : value}</p>
 	</div>
 
-	{#if $selectedCountry === null || fiat === NaN}
+	{#if $selectedCountry === null || typeof fiat === NaN}
 	<p>Loading...</p>
 	{:else}
 	<p class='text-semibold'>
-		{fiat === 'Loading...' ? 'Loading...' : fiat}{$selectedCountry?.node.currencies.edges[0].node.code}
+		{fiat === 'Loading...' ? 'Loading...' : fiat === 'NaN' ? 'This currency rate is unavailable' : fiat} {fiat === 'NaN' ? '' : $selectedCountry?.node.currencies.edges[0].node.code}
 	</p>
 	{/if}
 
