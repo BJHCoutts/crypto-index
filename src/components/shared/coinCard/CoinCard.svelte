@@ -5,17 +5,21 @@
 	export let name: string
 	export let value: number
 
-	let dollarUS = Intl.NumberFormat('en-US');
+	const usdt = Intl.NumberFormat('en-US', {
+		currency: 'USD',
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	});
 
-	$: fiat = dollarUS.format(value * $selectedCountryRate)
+	$: fiat = usdt.format(value * $selectedCountryRate)
 
 </script>
 
 <li>
 	<div class='shadow-md w28 h12 p-8 container-sm'>
-		<h2>{name}/USDT</h2>
+		<small>{name}/USDT</small>
 		
-		<p class='text-lg font-bold'>{value !== 'Loading...' ? dollarUS.format(value) : value}</p>
+		<p class='text-lg font-bold'>{value !== 'Loading...' ? usdt.format(value) : value}</p>
 	</div>
 
 	{#if $selectedCountry === null || fiat === NaN}
