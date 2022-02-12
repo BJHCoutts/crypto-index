@@ -1,25 +1,26 @@
 <script lang='ts'>
 	
-	import { selectedCountry } from "../../../stores/countrySelect";
+	import { selectedCountry, selectedCountryRate } from "../../../stores/countrySelect";
 	import type { Countries, Country } from "../../../types";
 	export let title: string
 	export let options: Countries
 
 	selectedCountry.set(options.edges[0])
-	$: selectedFiat = $selectedCountry?.node.currencies.edges[0].node.code
+
 
 	const getRate = async (fiat: string) => {
 		const res = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=USDT&tsyms=${fiat}`)
 		const results = await res.json()
-		console.log(results)
+		selectedCountryRate.set(results[fiat])
+		console.log(results[fiat])
 	}
 
-	getRate(selectedFiat)
+	getRate($selectedCountry?.node.currencies.edges[0].node.code)
 	
 	const handleChange = (option: number) => {
 		selectedCountry.set(options.edges[option])
 		
-		getRate(selectedFiat)
+		getRate($selectedCountry?.node.currencies.edges[0].node.code)
 
 	}
 

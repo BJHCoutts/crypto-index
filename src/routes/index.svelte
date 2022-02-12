@@ -23,9 +23,9 @@
 	.card-container {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		max-width: fit-content;
 		margin: 0 auto;
 		grid-gap: 2em;
+		place-items: center;
 	}
 
 </style>
