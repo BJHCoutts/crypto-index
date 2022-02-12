@@ -5,21 +5,23 @@
 	export let name: string
 	export let value: number
 
-	$: fiat = (value * $selectedCountryRate)
+	let dollarUS = Intl.NumberFormat('en-US');
+
+	$: fiat = dollarUS.format(value * $selectedCountryRate)
 
 </script>
 
-<li class='shadow-md w12 h12 p-8'>
-	<div>
+<li>
+	<div class='shadow-md w28 h12 p-8 container-sm'>
 		<h2>{name}/USDT</h2>
 		
-		<p>{value}</p>
+		<p class='text-lg font-bold'>{value !== 'Loading...' ? dollarUS.format(value) : value}</p>
 	</div>
 
 	{#if $selectedCountry === null || fiat === NaN}
 	<p>Loading...</p>
 	{:else}
-	<p class='text-blue-70'>
+	<p class='text-semibold'>
 		{typeof fiat === 'number' ? fiat : 'rate is unavailable'} {$selectedCountry?.node.currencies.edges[0].node.code}
 	</p>
 	{/if}

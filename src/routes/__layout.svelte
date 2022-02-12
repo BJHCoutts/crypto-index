@@ -2,4 +2,6 @@
   import "../app.css";
 </script>
 
-<slot />
+<main class='pt-16 shadow-lg'>
+  <slot />
+</main>

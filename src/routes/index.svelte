@@ -26,6 +26,7 @@
 		margin: 0 auto;
 		grid-gap: 2em;
 		place-items: center;
+		max-width: 40em;
 	}
 
 </style>
