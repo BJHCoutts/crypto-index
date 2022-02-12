@@ -1,4 +1,5 @@
 import { writable, Writable } from "svelte/store"
+import { cryptoWebsocket } from "../constants/apiUrl"
 
 export const bitcoinStore: Writable<number|string> = writable('Loading...')
 
@@ -8,7 +9,7 @@ export const moneroStore: Writable<number|string> = writable('Loading...')
 
 export const getCoinValues = () => {
 
-	const socket = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero')
+	const socket = new WebSocket(cryptoWebsocket)
 
 	socket.addEventListener('message', (e) => {
 		if (JSON.parse(e.data).bitcoin !== undefined) {
