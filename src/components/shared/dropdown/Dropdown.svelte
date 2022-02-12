@@ -1,4 +1,6 @@
 <script lang='ts'>
+import { rateRestApi } from "../../../constants/apiUrl";
+
 	
 	import { selectedCountry, selectedCountryRate } from "../../../stores/countrySelect";
 	import type { Countries } from "../../../types";
@@ -11,7 +13,7 @@
 
 
 	const getRate = async (fiat: string) => {
-		const res = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=USDT&tsyms=${fiat}`)
+		const res = await fetch(rateRestApi+fiat)
 		const results = await res.json()
 		selectedCountryRate.set(results[fiat])
 	}
