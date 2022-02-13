@@ -3,7 +3,7 @@
 	import { selectedCountry, selectedCountryRate } from "../../../stores/countrySelect";
 
 	export let name: string
-	export let value: number
+	export let value: number | string
 
 	const usdt = Intl.NumberFormat('en-US', {
 		currency: 'USD',
@@ -54,12 +54,12 @@
 		<p class='text-lg font-bold'>{value !== 'Loading...' ? usdt.format(value) : value}</p>
 	</div>
 
-	{#if $selectedCountry === null || typeof fiat === NaN}
-	<p>Loading...</p>
+	{#if $selectedCountry === null}
+		<p>Loading...</p>
 	{:else}
-	<p class='text-semibold'>
-		{fiat === 'Loading...' ? 'Loading...' : fiat === 'NaN' ? 'This currency rate is unavailable' : fiat} {fiat === 'NaN' ? '' : $selectedCountry?.node.currencies.edges[0].node.code}
-	</p>
+		<p class='text-semibold'>
+			{fiat === 'Loading...' ? 'Loading...' : fiat === 'NaN' ? 'This currency rate is unavailable' : fiat} {fiat === 'NaN' ? '' : $selectedCountry?.node.currencies.edges[0].node.code}
+		</p>
 	{/if}
 
 </li>

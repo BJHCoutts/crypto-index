@@ -18,12 +18,12 @@ import { rateRestApi } from "../../../constants/apiUrl";
 		selectedCountryRate.set(results[fiat])
 	}
 
-	getRate($selectedCountry?.node.currencies.edges[0].node.code)
+	getRate($selectedCountry?.node.currencies.edges[0].node.code as string)
 	
 	const handleChange = (option: number) => {
 		selectedCountry.set(options.edges[option])
 		
-		getRate($selectedCountry?.node.currencies.edges[0].node.code)
+		getRate($selectedCountry?.node.currencies.edges[0].node.code as string)
 
 	}
 
@@ -46,7 +46,7 @@ span {
 <section class='mx-auto mb-8 w-fit'>
 	<h2><img src={$selectedCountry?.node.flag} alt={`${$selectedCountry?.node.name}'s flag`} />{$selectedCountry?.node.name}</h2>
 	<label for={title}>Select your <span>{title}</span>:</label>
-	<select id={title} name={title} value={$selectedCountry?.node.name} on:change={(e) => handleChange(parseInt(e.currentTarget.value))}>
+	<select id={title} name={title} on:change={(e) => handleChange(parseInt(e.currentTarget.value))}>
 	
 		{#each options.edges.slice(randomCountryNumber, (randomCountryNumber+5)) as option, i}
 			<option value={randomCountryNumber + i}>
@@ -54,4 +54,5 @@ span {
 			</option>
 		{/each}
 	</select>
+	
 </section>
